@@ -1,0 +1,11 @@
+{
+  "name": "tiktok-analyzer-frontend",
+  "version": "1.0.0",
+  "description": "Interface web pour TikTok Analyzer",
+  "scripts": {
+    "start": "npx serve -s . -l 3000"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

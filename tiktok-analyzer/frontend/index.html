@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Analyzer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f0f0f;
+            color: #e1e1e1;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #fe2c55, #25f4ee);
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p { color: rgba(255,255,255,0.85); margin-top: 4px; }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            color: #aaa;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            border-color: #fe2c55;
+            color: #fe2c55;
+            background: #1e0a10;
+        }
+
+        .tab:hover { border-color: #fe2c55; }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 14px 16px;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus { border-color: #25f4ee; }
+
+        .search-box button {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #fe2c55, #d4234a);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .search-box button:hover { opacity: 0.85; }
+        .search-box button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .results {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 24px;
+            display: none;
+        }
+
+        .results.visible { display: block; }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .profile-header img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fe2c55;
+        }
+
+        .profile-header .info h2 {
+            font-size: 22px;
+            color: #fff;
+        }
+
+        .profile-header .info p {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat {
+            background: #222;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #25f4ee;
+        }
+
+        .stat .label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .detail-row .key { color: #888; }
+        .detail-row .val { color: #fff; font-weight: 500; }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            background: #2a1a2e;
+            color: #d4a5ff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .error {
+            background: #2e1a1a;
+            color: #ff6b6b;
+            padding: 16px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .loading {
+            text-align: center;
+            color: #888;
+            padding: 40px;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #444;
+            border-top-color: #fe2c55;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .bio { color: #ccc; font-style: italic; margin: 8px 0 16px; }
+
+        .badge {
+            display: inline-block;
+            background: #25f4ee;
+            color: #000;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TikTok Analyzer</h1>
+        <p>Analysez profils, vidéos et hashtags TikTok</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="profile">Profil</div>
+            <div class="tab" data-tab="video">Vidéo</div>
+            <div class="tab" data-tab="hashtag">Hashtag</div>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="@username">
+            <button id="searchBtn" onclick="analyze()">Analyser</button>
+        </div>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+        let currentTab = 'profile';
+
+        const placeholders = {
+            profile: '@username',
+            video: 'https://www.tiktok.com/@user/video/123...',
+            hashtag: '#hashtag'
+        };
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelector('.tab.active').classList.remove('active');
+                tab.classList.add('active');
+                currentTab = tab.dataset.tab;
+                document.getElementById('searchInput').placeholder = placeholders[currentTab];
+                document.getElementById('searchInput').value = '';
+                document.getElementById('results').classList.remove('visible');
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('keydown', e => {
+            if (e.key === 'Enter') analyze();
+        });
+
+        function formatNumber(n) {
+            if (n === undefined || n === null) return '—';
+            if (n >= 1_000_000_000) return (n / 1_000_000_000).toFixed(1) + 'B';
+            if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
+            if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K';
+            return n.toString();
+        }
+
+        async function analyze() {
+            const input = document.getElementById('searchInput').value.trim();
+            if (!input) return;
+
+            const results = document.getElementById('results');
+            results.classList.add('visible');
+            results.innerHTML = '<div class="loading">Analyse en cours</div>';
+
+            try {
+                let url;
+                if (currentTab === 'profile') {
+                    url = `${API_BASE}/profile?username=${encodeURIComponent(input)}`;
+                } else if (currentTab === 'video') {
+                    url = `${API_BASE}/video?url=${encodeURIComponent(input)}`;
+                } else {
+                    url = `${API_BASE}/hashtag?tag=${encodeURIComponent(input)}`;
+                }
+
+                const resp = await fetch(url);
+                const data = await resp.json();
+
+                if (data.error) {
+                    results.innerHTML = `<div class="error">${data.error}</div>`;
+                    return;
+                }
+
+                if (currentTab === 'profile') renderProfile(data);
+                else if (currentTab === 'video') renderVideo(data);
+                else renderHashtag(data);
+
+            } catch (err) {
+                results.innerHTML = `<div class="error">Erreur de connexion au serveur. Vérifiez que le backend est lancé sur le port 5000.</div>`;
+            }
+        }
+
+        function renderProfile(data) {
+            const results = document.getElementById('results');
+            const verified = data.verified ? '<span class="badge">Vérifié</span>' : '';
+            results.innerHTML = `
+                <div class="profile-header">
+                    ${data.avatar ? `<img src="${data.avatar}" alt="avatar">` : ''}
+                    <div class="info">
+                        <h2>@${data.username} ${verified}</h2>
+                        <p>${data.nickname || ''}</p>
+                    </div>
+                </div>
+                ${data.bio ? `<div class="bio">${data.bio}</div>` : ''}
+                <div class="stats">
+                    <div class="stat"><div class="value">${formatNumber(data.followers)}</div><div class="label">Abonnés</div></div>
+                    <div class="stat"><div class="value">${formatNumber(data.following)}</div><div class="label">Abonnements</div></div>
+                    <div class="stat"><div class="value">${formatNumber(data.likes)}</div><div class="label">Likes</div></div>
+                    <div class="stat"><div class="value">${formatNumber(data.videos)}</div><div class="label">Vidéos</div></div>
+                </div>
+            `;
+        }
+
+        function renderVideo(data) {
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                ${data.thumbnail ? `<img src="${data.thumbnail}" style="width:100%;border-radius:10px;margin-bottom:16px;">` : ''}
+                <h2 style="color:#fff;margin-bottom:8px;">${data.title || 'Sans titre'}</h2>
+                <p style="color:#888;margin-bottom:16px;">${data.creator || data.uploader_id || ''}</p>
+                ${data.description ? `<div class="bio">${data.description}</div>` : ''}
+                <div class="stats">
+                    <div class="stat"><div class="value">${formatNumber(data.views)}</div><div class="label">Vues</div></div>
+                    <div class="stat"><div class="value">${formatNumber(data.likes)}</div><div class="label">Likes</div></div>
+                    <div class="stat"><div class="value">${formatNumber(data.comments)}</div><div class="label">Commentaires</div></div>
+                    <div class="stat"><div class="value">${formatNumber(data.shares)}</div><div class="label">Partages</div></div>
+                </div>
+                <div class="detail-row"><span class="key">Durée</span><span class="val">${data.duration ? data.duration + 's' : '—'}</span></div>
+                <div class="detail-row"><span class="key">Date</span><span class="val">${data.upload_date || '—'}</span></div>
+                <div class="detail-row"><span class="key">Résolution</span><span class="val">${data.resolution || '—'}</span></div>
+                <div class="detail-row"><span class="key">Musique</span><span class="val">${data.music?.title || '—'} — ${data.music?.artist || '—'}</span></div>
+                ${data.tags?.length ? `<div class="tags">${data.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>` : ''}
+            `;
+        }
+
+        function renderHashtag(data) {
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <h2 style="color:#fff;margin-bottom:16px;">${data.hashtag}</h2>
+                <p style="color:#888;margin-bottom:16px;">${data.description || ''}</p>
+                <div class="stats">
+                    <div class="stat"><div class="value">${formatNumber(data.views)}</div><div class="label">Vues</div></div>
+                    <div class="stat"><div class="value">${formatNumber(data.video_count)}</div><div class="label">Vidéos</div></div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
