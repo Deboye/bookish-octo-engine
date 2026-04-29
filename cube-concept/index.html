@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUBE by Cabinet Carrée — Concept Deck</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --primary: #0A1628;
+            --accent: #C8A956;
+            --accent-light: #E8D596;
+            --white: #FFFFFF;
+            --gray-50: #F8F9FA;
+            --gray-100: #E9ECEF;
+            --gray-200: #DEE2E6;
+            --gray-600: #6C757D;
+            --gray-800: #343A40;
+            --success: #28A745;
+            --gradient-gold: linear-gradient(135deg, #C8A956, #E8D596, #C8A956);
+            --gradient-dark: linear-gradient(135deg, #0A1628, #1A2A48);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* ========== SLIDE SYSTEM ========== */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 14px;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .slide-brand {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        /* ========== SLIDE 1: COVER ========== */
+        .slide-cover {
+            background: var(--gradient-dark);
+            color: var(--white);
+            text-align: center;
+            align-items: center;
+        }
+
+        .slide-cover .slide-brand { color: var(--accent); }
+
+        .cube-logo {
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--accent);
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .cube-logo span {
+            transform: rotate(-45deg);
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: var(--accent);
+        }
+
+        .cover-title {
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .cover-title em {
+            font-style: normal;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cover-subtitle {
+            font-size: 22px;
+            font-weight: 300;
+            color: var(--accent-light);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .cover-tagline {
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            margin-top: 20px;
+        }
+
+        .cover-by {
+            margin-top: 50px;
+            font-size: 13px;
+            color: var(--gray-600);
+            letter-spacing: 2px;
+        }
+
+        .cover-by strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ========== SLIDE 2: PROBLEME ========== */
+        .slide-problem { background: var(--white); }
+
+        .section-label {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1100px;
+        }
+
+        .problem-card {
+            background: var(--gray-50);
+            border-radius: 16px;
+            padding: 36px;
+            border-left: 4px solid;
+        }
+
+        .problem-card.pme { border-color: #E74C3C; }
+        .problem-card.diaspora { border-color: #3498DB; }
+        .problem-card.banque { border-color: #F39C12; }
+        .problem-card.marche { border-color: #27AE60; }
+
+        .problem-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .problem-card .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .problem-card p {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        .stat-highlight {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--accent);
+            display: block;
+            margin-top: 8px;
+        }
+
+        /* ========== SLIDE 3: SOLUTION / FLOW ========== */
+        .slide-solution {
+            background: var(--white);
+        }
+
+        .flow-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: nowrap;
+        }
+
+        .flow-step {
+            flex: 1;
+            background: var(--gray-50);
+            border-radius: 16px;
+            padding: 28px 20px;
+            text-align: center;
+            position: relative;
+            border: 2px solid var(--gray-100);
+            transition: all 0.3s;
+            min-width: 0;
+        }
+
+        .flow-step:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(200,169,86,0.15);
+        }
+
+        .flow-step .step-num {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-gold);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            margin: 0 auto 14px;
+        }
+
+        .flow-step .step-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .flow-step h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .flow-step p {
+            font-size: 12px;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            color: var(--accent);
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        /* ========== SLIDE 4: MODELE ECONOMIQUE ========== */
+        .slide-model { background: var(--gradient-dark); color: var(--white); }
+        .slide-model .section-title { color: var(--white); }
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+        }
+
+        .model-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(200,169,86,0.25);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .model-card .model-icon { font-size: 40px; margin-bottom: 16px; }
+        .model-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-light);
+            margin-bottom: 10px;
+        }
+        .model-card p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+        .model-card .model-rate {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--accent);
+            margin: 12px 0;
+        }
+        .model-card .model-rate small {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--accent-light);
+        }
+
+        /* ========== SLIDE 5: SECURISATION ========== */
+        .slide-security { background: var(--white); }
+
+        .security-layers {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .security-layer {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 24px 32px;
+            margin-bottom: 16px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .security-layer .sec-icon { font-size: 32px; flex-shrink: 0; }
+        .security-layer h4 { font-size: 16px; font-weight: 700; color: var(--primary); }
+        .security-layer p { font-size: 14px; color: var(--gray-600); margin-top: 4px; }
+
+        /* ========== SLIDE 6: ACTEURS ========== */
+        .slide-actors { background: var(--gray-50); }
+
+        .actors-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .actor-box {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px 28px;
+            text-align: center;
+            width: 200px;
+            border: 2px solid var(--gray-200);
+            position: relative;
+        }
+
+        .actor-box.central {
+            width: 220px;
+            border-color: var(--accent);
+            background: var(--gradient-dark);
+            color: var(--white);
+        }
+
+        .actor-box .actor-icon { font-size: 40px; margin-bottom: 12px; }
+        .actor-box h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+        .actor-box.central h4 { color: var(--accent); }
+        .actor-box p { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+        .actor-box.central p { color: rgba(255,255,255,0.65); }
+
+        .actor-connector {
+            font-size: 28px;
+            color: var(--accent);
+            font-weight: 900;
+        }
+
+        /* ========== SLIDE 7: ROADMAP ========== */
+        .slide-roadmap { background: var(--white); }
+
+        .roadmap-timeline {
+            display: flex;
+            gap: 24px;
+            max-width: 1100px;
+            position: relative;
+        }
+
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+        }
+
+        .roadmap-phase {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .phase-dot {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin: 38px auto 20px;
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 3px var(--accent);
+        }
+
+        .roadmap-phase h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .roadmap-phase .phase-time {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .roadmap-phase ul {
+            list-style: none;
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+
+        .roadmap-phase ul li {
+            padding: 3px 0;
+        }
+
+        .roadmap-phase ul li::before {
+            content: ">";
+            color: var(--accent);
+            font-weight: 700;
+            margin-right: 6px;
+        }
+
+        /* ========== SLIDE 8: CTA ========== */
+        .slide-cta {
+            background: var(--gradient-dark);
+            color: var(--white);
+            text-align: center;
+            align-items: center;
+        }
+
+        .cta-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .cta-title em {
+            font-style: normal;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-contacts {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .cta-contact-item {
+            text-align: center;
+        }
+
+        .cta-contact-item .label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .cta-contact-item .value {
+            font-size: 16px;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .cta-badge {
+            display: inline-block;
+            padding: 12px 36px;
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .slide { padding: 40px 24px; }
+            .cover-title { font-size: 32px; }
+            .section-title { font-size: 28px; }
+            .problem-grid, .model-grid { grid-template-columns: 1fr; }
+            .flow-diagram { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); justify-content: center; }
+            .actors-diagram { flex-direction: column; align-items: center; }
+            .actor-connector { transform: rotate(90deg); }
+            .roadmap-timeline { flex-direction: column; }
+            .roadmap-timeline::before { display: none; }
+            .cta-contacts { flex-direction: column; gap: 20px; }
+        }
+
+        /* ========== PRINT ========== */
+        @media print {
+            .slide { page-break-after: always; min-height: auto; padding: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<section class="slide slide-cover">
+    <span class="slide-brand">Cabinet Carree</span>
+    <span class="slide-number">CONFIDENTIEL</span>
+
+    <div class="cube-logo">
+        <span>CUBE</span>
+    </div>
+    <h1 class="cover-title">La Diaspora investit.<br><em>Les PME grandissent.</em></h1>
+    <p class="cover-subtitle">Plateforme de crowdfunding d'actifs pour le financement des stocks des PME senegalaises</p>
+    <p class="cover-tagline">Investissement garanti &bull; Rendements attractifs &bull; Impact direct</p>
+    <p class="cover-by">Un produit <strong>CABINET CARREE</strong> &mdash; ccarree.com</p>
+</section>
+
+<!-- ==================== SLIDE 2: LE PROBLEME ==================== -->
+<section class="slide slide-problem">
+    <span class="slide-brand">CUBE</span>
+    <span class="slide-number">01</span>
+
+    <p class="section-label">Le constat</p>
+    <h2 class="section-title">Un potentiel immense, bloque par<br>un probleme de financement</h2>
+
+    <div class="problem-grid">
+        <div class="problem-card pme">
+            <div class="icon">🏭</div>
+            <h3>Les PME senegalaises</h3>
+            <p>Elles sont rentables et accompagnees par le Cabinet. Leur probleme n'est pas le marche, c'est la <strong>capacite a financer leur stock</strong> au bon moment. Elles ne peuvent pas lever tout le capital necessaire en une seule fois.</p>
+        </div>
+        <div class="problem-card diaspora">
+            <div class="icon">🌍</div>
+            <h3>La Diaspora senegalaise</h3>
+            <p>Des capitaux disponibles, une volonte d'investir au pays, mais <strong>aucun vehicule d'investissement fiable</strong> avec des rendements attractifs et une securisation reelle des fonds.</p>
+            <span class="stat-highlight">+200 Mds FCFA/an</span>
+            <p>de transferts de la diaspora vers le Senegal</p>
+        </div>
+        <div class="problem-card banque">
+            <div class="icon">🏦</div>
+            <h3>Les banques classiques</h3>
+            <p>Des processus longs, des garanties excessives, des taux eleves. <strong>Les PME sont sous-bancarisees</strong> et ne peuvent pas obtenir de financement de stock rapide.</p>
+        </div>
+        <div class="problem-card marche">
+            <div class="icon">📈</div>
+            <h3>L'opportunite</h3>
+            <p>Les PME accompagnees par Carree ont des marges prouvees. Le stock qu'elles achete se revend avec des marges allant jusqu'a <strong>150-200%</strong>. Le risque est maitrise, le rendement est reel.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 3: LE FLUX CUBE ==================== -->
+<section class="slide slide-solution">
+    <span class="slide-brand">CUBE</span>
+    <span class="slide-number">02</span>
+
+    <p class="section-label">Comment ca marche</p>
+    <h2 class="section-title">Le flux CUBE en 6 etapes</h2>
+
+    <div class="flow-container">
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <div class="step-num">1</div>
+                <div class="step-icon">🌍</div>
+                <h4>Investisseur Diaspora</h4>
+                <p>S'inscrit sur la plateforme CUBE, consulte les opportunites de financement de stock</p>
+            </div>
+            <div class="flow-arrow">&#10132;</div>
+            <div class="flow-step">
+                <div class="step-num">2</div>
+                <div class="step-icon">💰</div>
+                <h4>Investissement</h4>
+                <p>Choisit un lot de stock a financer, investit via virement ou mobile money</p>
+            </div>
+            <div class="flow-arrow">&#10132;</div>
+            <div class="flow-step">
+                <div class="step-num">3</div>
+                <div class="step-icon">🏦</div>
+                <h4>Securisation bancaire</h4>
+                <p>Les fonds sont securises chez le partenaire bancaire (Cofina / SGBS / Microcash)</p>
+            </div>
+            <div class="flow-arrow">&#10132;</div>
+            <div class="flow-step">
+                <div class="step-num">4</div>
+                <div class="step-icon">📦</div>
+                <h4>Acquisition du stock</h4>
+                <p>Cabinet Carree acquiert le stock et le met a disposition de la PME</p>
+            </div>
+            <div class="flow-arrow">&#10132;</div>
+            <div class="flow-step">
+                <div class="step-num">5</div>
+                <div class="step-icon">🛒</div>
+                <h4>Vente par la PME</h4>
+                <p>La PME revend le stock sur son marche avec ses marges habituelles</p>
+            </div>
+            <div class="flow-arrow">&#10132;</div>
+            <div class="flow-step">
+                <div class="step-num">6</div>
+                <div class="step-icon">🎯</div>
+                <h4>Redistribution</h4>
+                <p>Les profits sont redistribues : capital + rendement a l'investisseur via le partenaire bancaire</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 4: MODELE ECONOMIQUE ==================== -->
+<section class="slide slide-model">
+    <span class="slide-brand" style="color: var(--accent);">CUBE</span>
+    <span class="slide-number" style="color: rgba(255,255,255,0.4);">03</span>
+
+    <p class="section-label">Modele economique</p>
+    <h2 class="section-title">3 formules d'investissement</h2>
+
+    <div class="model-grid">
+        <div class="model-card">
+            <div class="model-icon">🥉</div>
+            <h4>CUBE Starter</h4>
+            <div class="model-rate">50% <small>/ 6 mois</small></div>
+            <p>Investissement a court terme. Ideal pour decouvrir la plateforme. Financement de stocks a rotation rapide.</p>
+        </div>
+        <div class="model-card" style="border-color: var(--accent);">
+            <div class="model-icon">🥇</div>
+            <h4>CUBE Premium</h4>
+            <div class="model-rate">100% <small>/ 12 mois</small></div>
+            <p>Notre formule phare. Doublez votre investissement en 1 an sur des stocks a forte marge selectionnees par le Cabinet.</p>
+        </div>
+        <div class="model-card">
+            <div class="model-icon">💎</div>
+            <h4>CUBE Elite</h4>
+            <div class="model-rate">150% <small>/ 18 mois</small></div>
+            <p>Investissement long terme. Portefeuille diversifie sur plusieurs PME. Rendement maximal garanti.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 5: SECURISATION ==================== -->
+<section class="slide slide-security">
+    <span class="slide-brand">CUBE</span>
+    <span class="slide-number">04</span>
+
+    <p class="section-label">Securisation &amp; garanties</p>
+    <h2 class="section-title">Un investissement securise<br>a chaque etape</h2>
+
+    <div class="security-layers">
+        <div class="security-layer">
+            <div class="sec-icon">📦</div>
+            <div>
+                <h4>Garantie par le stock physique</h4>
+                <p>Le stock acquis sert de collateral direct. L'investisseur finance un actif reel et tangible, pas une promesse.</p>
+            </div>
+        </div>
+        <div class="security-layer">
+            <div class="sec-icon">🔍</div>
+            <div>
+                <h4>PME pre-qualifiees par Cabinet Carree</h4>
+                <p>Seules les PME accompagnees par le Cabinet, dont la rentabilite est prouvee, accedent a la plateforme.</p>
+            </div>
+        </div>
+        <div class="security-layer">
+            <div class="sec-icon">🏦</div>
+            <div>
+                <h4>Partenaire bancaire regulateur</h4>
+                <p>Les fonds transitent et sont securises via le partenaire bancaire (Cofina, SGBS, Microcash). Mecanismes de recuperation contractuels.</p>
+            </div>
+        </div>
+        <div class="security-layer">
+            <div class="sec-icon">📋</div>
+            <div>
+                <h4>Cadre reglementaire BCEAO</h4>
+                <p>Montage via la licence du partenaire bancaire ou cadre mixte en phase de lancement. Objectif : conformite totale BCEAO.</p>
+            </div>
+        </div>
+        <div class="security-layer">
+            <div class="sec-icon">🛡️</div>
+            <div>
+                <h4>Cabinet Carree en garant moral</h4>
+                <p>+70 000 clients accompagnes. 7 ans d'experience en conseil strategique au Senegal. Reputation et engagement en jeu.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 6: ECOSYSTEME ==================== -->
+<section class="slide slide-actors">
+    <span class="slide-brand">CUBE</span>
+    <span class="slide-number">05</span>
+
+    <p class="section-label">Ecosysteme</p>
+    <h2 class="section-title">Les acteurs de la plateforme</h2>
+
+    <div class="actors-diagram">
+        <div class="actor-box">
+            <div class="actor-icon">🌍</div>
+            <h4>Diaspora</h4>
+            <p>Investisseurs individuels. Capitaux depuis l'Europe, USA, Canada, etc.</p>
+        </div>
+        <div class="actor-connector">&#8594;</div>
+        <div class="actor-box">
+            <div class="actor-icon">🏦</div>
+            <h4>Partenaire Bancaire</h4>
+            <p>Cofina / SGBS / Microcash. Securise les flux et fournit le cadre reglementaire.</p>
+        </div>
+        <div class="actor-connector">&#8594;</div>
+        <div class="actor-box central">
+            <div class="actor-icon">🔷</div>
+            <h4>CUBE</h4>
+            <p>Plateforme web. Orchestre le matching, la transparence et le suivi en temps reel.</p>
+        </div>
+        <div class="actor-connector">&#8594;</div>
+        <div class="actor-box">
+            <div class="actor-icon">🏢</div>
+            <h4>Cabinet Carree</h4>
+            <p>Selectionne, audite et accompagne les PME. Garant du processus.</p>
+        </div>
+        <div class="actor-connector">&#8594;</div>
+        <div class="actor-box">
+            <div class="actor-icon">🏭</div>
+            <h4>PME Senegalaises</h4>
+            <p>Beneficiaires du stock finance. Rentabilite prouvee, accompagnement Carree.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 7: ROADMAP ==================== -->
+<section class="slide slide-roadmap">
+    <span class="slide-brand">CUBE</span>
+    <span class="slide-number">06</span>
+
+    <p class="section-label">Feuille de route</p>
+    <h2 class="section-title">Roadmap de deploiement</h2>
+
+    <div class="roadmap-timeline">
+        <div class="roadmap-phase">
+            <h4>Phase 1</h4>
+            <div class="phase-dot"></div>
+            <div class="phase-time">T2 2026</div>
+            <ul>
+                <li>Partenariat bancaire signe</li>
+                <li>Cadre juridique valide</li>
+                <li>MVP plateforme web</li>
+                <li>3-5 PME pilotes</li>
+            </ul>
+        </div>
+        <div class="roadmap-phase">
+            <h4>Phase 2</h4>
+            <div class="phase-dot"></div>
+            <div class="phase-time">T3-T4 2026</div>
+            <ul>
+                <li>Lancement beta prive</li>
+                <li>50 premiers investisseurs</li>
+                <li>10+ PME actives</li>
+                <li>Application mobile</li>
+            </ul>
+        </div>
+        <div class="roadmap-phase">
+            <h4>Phase 3</h4>
+            <div class="phase-dot"></div>
+            <div class="phase-time">T1 2027</div>
+            <ul>
+                <li>Ouverture au public</li>
+                <li>Agrement BCEAO</li>
+                <li>500+ investisseurs</li>
+                <li>50+ PME financees</li>
+            </ul>
+        </div>
+        <div class="roadmap-phase">
+            <h4>Phase 4</h4>
+            <div class="phase-dot"></div>
+            <div class="phase-time">2027+</div>
+            <ul>
+                <li>Expansion UEMOA</li>
+                <li>Cote d'Ivoire, Mali</li>
+                <li>Partenariats bancaires multiples</li>
+                <li>Produits financiers diversifies</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SLIDE 8: CTA ==================== -->
+<section class="slide slide-cta">
+    <span class="slide-brand" style="color: var(--accent);">CUBE</span>
+    <span class="slide-number" style="color: rgba(255,255,255,0.4);">07</span>
+
+    <h2 class="cta-title">Construisons <em>ensemble</em><br>le futur du financement PME</h2>
+    <p class="cta-subtitle">CUBE transforme l'epargne de la diaspora en moteur de croissance pour les PME senegalaises. Un modele gagnant-gagnant, securise et a fort impact.</p>
+
+    <div class="cta-badge">Partenariat strategique</div>
+
+    <div class="cta-contacts">
+        <div class="cta-contact-item">
+            <div class="label">Cabinet</div>
+            <div class="value">Cabinet Carree</div>
+        </div>
+        <div class="cta-contact-item">
+            <div class="label">Web</div>
+            <div class="value">ccarree.com</div>
+        </div>
+        <div class="cta-contact-item">
+            <div class="label">Siege</div>
+            <div class="value">Dakar, Senegal</div>
+        </div>
+    </div>
+
+    <p class="cover-by" style="margin-top: 50px;">
+        <strong>CUBE</strong> &mdash; La Diaspora investit. Les PME grandissent.
+    </p>
+</section>
+
+</body>
+</html>
